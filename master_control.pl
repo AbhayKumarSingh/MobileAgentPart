@@ -92,6 +92,7 @@ initialize_initial_values:-
 
 start_experiment:-
 	consult( 'events.pl' ),
+	consult( 'task_manager.pl' ),
 	clock_start.
 
 clock_start:-
@@ -146,7 +147,9 @@ fire_handler(Name,Status):-
 	timer_set(Name,(TimeToFire,Count)).
 
 action(( init, _, _, _ ), _ ):-
-	initialize_initial_values.
+	initialize_initial_values,
+	( write( `Initialized values` ) ) ~> Avar,
+	send_log( Avar ).
 
 % The following case may be for future use
 action(( sol, Node, Type, Data ), List ):-
