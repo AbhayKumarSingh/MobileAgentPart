@@ -105,7 +105,9 @@ set_token(Token):- retract(platform_token(_)),assert(platform_token(Token)).
 % connect/3 creates a link between two platforms. The other platform is specified by IP and Port. Results in Link which is used later on 
 % for platform-to-platform communication. Just uses the agent_create/4 from Chimera. <SIMPLE>
 connect(IP,Port,Link):-					 
-   agent_create(platform,Link,IP,Port).
+   repeat,
+   catch( Err, (agent_create(platform,Link,IP,Port),!)),
+   Err = 0.
 
 
 % disconnect/1 breaks the above connection. Usual heuristic dictates that connections should be terminated. The issue however is who calls it?
