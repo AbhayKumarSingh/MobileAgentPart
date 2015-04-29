@@ -40,7 +40,7 @@ cons_handler(guid,Link,migration(GUID,P)):-
 	solution( guid, SolType, _ ),
 	(problemOnCurrentNode( SolType ) ->
 		(
-			retract( problemOnCurrentNode( SolType )),
+			retractall( problemOnCurrentNode( SolType )),
 			assert( problemOnCurrentNode( none )),
 			( write( `Solution received at,` ), write( Nodenm ), write( `,Currentnode:,` ), write( Nodenm ), write( `,` ), write( SolType )) ~> Var1,
 			send_log( Var1 )
